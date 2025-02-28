@@ -7,7 +7,7 @@ const app = express();
 //allows the backend to specify which origins (domains) are allowed to access its resources.
 app.use(
   cors({
-    origin: "*",
+    origin: process.env.CORS_ORIGIN,
     credentials: true,
   })
 );
