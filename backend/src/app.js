@@ -20,6 +20,14 @@ app.use(cookieParser());
 //routes
 
 import authRouter from './routes/auth.routes.js'
+import instructorRouter from './routes/instructor.routes.js'
+import courseRouter from "./routes/course.routes.js";
+import lectureRouter from "./routes/lecture.routes.js"
+
 app.use('/api/v1/users', authRouter)
+app.use("/api/v1/instructor", instructorRouter);
+app.use("/api/v1/admin/add-course", courseRouter);
+app.use("/api/v1/admin/schedule-lecture", lectureRouter)
+
 
 export { app };
