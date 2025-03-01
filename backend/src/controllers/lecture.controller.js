@@ -55,4 +55,22 @@ const scheduleLecture = asyncHandler(async (req, res) => {
     .json(new ApiResponse(201, newLecture, "Lecture scheduled successfully"));
 });
 
-export { scheduleLecture };
+const fetchAllLectures = asyncHandler(async (req, res) => {
+  const lectures = await Lecture.find()
+    .populate("course", "name") // Populate course details
+    .populate("instructor", "name email") // Populate instructor details
+    .sort({ date: 1 }); // Sort by date
+
+  if (!lectures.length) {
+    throw new ApiError(404, "No lectures found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, lectures, "Lectures fetched successfully"));
+});
+
+
+
+
+export { scheduleLecture, fetchAllLectures };

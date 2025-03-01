@@ -5,10 +5,10 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 
-const getAllInstructors = asyncHandler((_ ,res) =>{
+const getAllInstructors = asyncHandler(async(_ ,res) =>{
     
     //find instructors in db through role
-        const instructors = await User.find({role:"instructor"})
+        const instructors = await User.find({role:"instructor"}).select('-password')
 
         //if can't find instructors, throw custom error
         if(!instructors){
@@ -24,7 +24,7 @@ const getAllInstructors = asyncHandler((_ ,res) =>{
 
 
 
-const createInstructor = asyncHandler((req,res) =>{
+const createInstructor = asyncHandler(async(req,res) =>{
     //get user data from req.body
   const { name, email, password } = req.body;
 
@@ -65,7 +65,7 @@ const createInstructor = asyncHandler((req,res) =>{
 })
 
 
-const editInstructorDetails = asyncHandler((req,res) =>{
+const editInstructorDetails = asyncHandler(async(req,res) =>{
 
      //get id from frontend
      const {id} = req.params
@@ -77,7 +77,7 @@ const editInstructorDetails = asyncHandler((req,res) =>{
         throw new ApiError(400, "Update fields are required!")
      }
 
-     const updatedInstructor = await User.findByIdAndUpdate(id, { name, email }, { new: true });
+     const updatedInstructor = await User.findByIdAndUpdate(id, { name, email }, { new: true }).select('-password')
 
      return res
     .status(200)
@@ -87,7 +87,7 @@ const editInstructorDetails = asyncHandler((req,res) =>{
 
 
 // Get all assigned lectures for the logged-in instructor
-export const getInstructorLectures = asyncHandler(async (req, res) => {
+ const getInstructorLectures = asyncHandler(async (req, res) => {
     const instructorId = req.user._id; 
 
     // Find lectures for the instructor and populate course details

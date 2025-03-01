@@ -4,7 +4,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
 
-const addCourse = asyncHandler((req,res) =>{
+const addCourse = asyncHandler(async(req,res) =>{
     //get name, level, description from frontend
 
     const {name, level, description} = req.body
@@ -50,4 +50,19 @@ const addCourse = asyncHandler((req,res) =>{
 })
 
 
-export {addCourse}
+
+
+const fetchAllCourses = asyncHandler(async (req, res) => {
+  const courses = await Course.find();
+
+  if (!courses || courses.length === 0) {
+    throw new ApiError(404, "No courses found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, courses, "Courses fetched successfully"));
+});
+
+
+export {addCourse, fetchAllCourses}

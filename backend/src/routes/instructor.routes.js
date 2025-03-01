@@ -10,7 +10,7 @@ import { verifyJWT, verifyAdmin } from "../middlewares/auth.middleware.js";
 const router = Router();
 
 
-router.route("/").get(verifyJWT, getInstructorLectures)
+router.route("/get-my-lectures").get(verifyJWT, getInstructorLectures)
 
 // admin protected routes
 
@@ -21,7 +21,7 @@ router
   .route("/admin/create-instructor")
   .post(verifyJWT, verifyAdmin, createInstructor);
 router
-  .route("/admin/edit-instructor")
-  .post(verifyJWT, verifyAdmin, editInstructorDetails);
+  .route("/admin/edit-instructor/:id")
+  .put(verifyJWT, verifyAdmin, editInstructorDetails);
 
 export default router;

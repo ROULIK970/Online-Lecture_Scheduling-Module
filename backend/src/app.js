@@ -26,8 +26,8 @@ import lectureRouter from "./routes/lecture.routes.js"
 
 app.use('/api/v1/users', authRouter)
 app.use("/api/v1/instructor", instructorRouter);
-app.use("/api/v1/admin/add-course", courseRouter);
-app.use("/api/v1/admin/schedule-lecture", lectureRouter)
+app.use("/api/v1/admin/courses", courseRouter);
+app.use("/api/v1/admin/lectures", lectureRouter)
 
 
 export { app };
