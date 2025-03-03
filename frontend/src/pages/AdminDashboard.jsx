@@ -7,12 +7,23 @@ import { logoutUser } from "../features/auth/authSlice.js";
 import {  useNavigate } from "react-router-dom";
 import AddCourse from "../components/AddCourse.jsx";
 import ScheduleLecture from "../components/ScheduleLecture.jsx";
+import EditInstructor from "../components/EditInstructor.jsx";
+import  AddInstructor  from "../components/AddInstructor.jsx";
+
+
+
 
 const AdminDashboard = () => {
   const [showCourseModal, setCourseShowModal] = useState(false);
   const [showLectureModal, setLectureShowModal] = useState(false);
+  const [showAddInstructorModal, setShowAddInstructorModal] = useState(false);
+  const [editInstructorData, setEditInstructorData] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const auth = useSelector(
+    (state) => state.auth
+  );
 
   const { instructors, loading: instructorLoading } = useSelector(
     (state) => state.instructors
@@ -39,7 +50,7 @@ const AdminDashboard = () => {
     <div className="p-6 bg-gray-100 min-h-screen">
       <div className="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-6">
         <h1 className="text-3xl font-bold text-gray-700 mb-6">
-          Admin Dashboard
+          Admin Dashboard, Welcome {auth.user.data.user.name.toUpperCase()}
         </h1>
         {/* Instructor Management */}
         <section className="mb-6">
@@ -57,9 +68,34 @@ const AdminDashboard = () => {
                 >
                   <span className="font-semibold">{inst.name}</span> -{" "}
                   {inst.email}
+                  <button
+                    className="bg-yellow-500 text-white px-2 py-1 rounded"
+                    onClick={() => setEditInstructorData(inst)}
+                  >
+                    Edit
+                  </button>
+                  {editInstructorData &&
+                    editInstructorData._id === inst._id && (
+                      <EditInstructor
+                        instructor={editInstructorData}
+                        onClose={() => setEditInstructorData(null)}
+                      />
+                    )}
                 </li>
               ))}
             </ul>
+          )}
+          <button
+            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+            onClick={() => setShowAddInstructorModal(!showAddInstructorModal)}
+          >
+            {" "}
+            {showAddInstructorModal ? "Close Form" : "+ Add Instructor"}
+          </button>
+          {showAddInstructorModal && (
+            <AddInstructor
+              onClose={() => setShowAddInstructorModal(!showAddInstructorModal)}
+            />
           )}
         </section>
         {/* course management and lecture schedule */}
@@ -134,13 +170,13 @@ const AdminDashboard = () => {
                 <AddCourse
                   onClose={() => setCourseShowModal(!showCourseModal)}
                 />
-              )} {" "}
+              )}{" "}
               <button
                 className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
                 onClick={() => setLectureShowModal(!showLectureModal)}
               >
                 {" "}
-                {showLectureModal ? "Close Form" : "+ Schedule Lecture"} 
+                {showLectureModal ? "Close Form" : "+ Schedule Lecture"}
               </button>
               {showLectureModal && (
                 <ScheduleLecture

@@ -15,7 +15,7 @@ const InstructorDashboard = () => {
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Instructor Dashboard</h2>
 
-      {error && <p className="text-red-500">Error: {error}</p>}
+      {error && <p className="text-gray-500 text-3xl">{error}</p>}
 
       {myLectures.length === 0 && !loading && !error ? (
         <p className="text-gray-500">No lectures scheduled yet.</p>
