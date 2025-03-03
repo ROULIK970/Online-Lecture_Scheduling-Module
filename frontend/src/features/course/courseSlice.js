@@ -5,14 +5,24 @@ import axios from "axios";
 const API_URL = "http://localhost:3000/api/v1/admin/courses";
 
 
-export const fetchCourses = createAsyncThunk("courses/fetchAll", async () => {
-  try {
-    const response = await axios.get(`${API_URL}/get-courses`, { withCredentials: true });
-    return response.data.data;
-  } catch (error) {
-    throw error.response?.data?.message || "Failed to fetch courses";
+export const fetchCourses = createAsyncThunk(
+  "courses/fetchAll",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${API_URL}/get-courses`, {
+        withCredentials: true,
+      });
+      console.log(response)
+      return response.data.data;
+
+    } catch (error) {
+      console.log(error)
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch courses"
+      );
+    }
   }
-});
+);
 
 
 export const addCourse = createAsyncThunk("courses/add", async (courseData) => {

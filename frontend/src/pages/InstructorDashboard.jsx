@@ -15,7 +15,6 @@ const InstructorDashboard = () => {
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Instructor Dashboard</h2>
 
-      {loading && <p className="text-blue-500">Loading lectures...</p>}
       {error && <p className="text-red-500">Error: {error}</p>}
 
       {myLectures.length === 0 && !loading && !error ? (
@@ -27,8 +26,9 @@ const InstructorDashboard = () => {
               key={lecture._id}
               className="bg-white shadow-md rounded-lg p-4"
             >
-              <h3 className="text-lg font-semibold">{lecture.title}</h3>
-              <p className="text-gray-700">{lecture.description}</p>
+              <h3 className="text-lg font-semibold">{lecture.course.name}</h3>
+              <p className="text-gray-700">{lecture.course.description}</p>
+              <p className="text-gray-700">{lecture.course.level}</p>
               <p className="text-sm text-gray-500">
                 Date: {new Date(lecture.date).toLocaleString()}
               </p>

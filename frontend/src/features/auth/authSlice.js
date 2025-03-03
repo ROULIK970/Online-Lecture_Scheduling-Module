@@ -19,7 +19,9 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (credentials) => {
     try {
-      const response = await axios.post(`${API_URL}/login`, credentials);
+      const response = await axios.post(`${API_URL}/login`, credentials, {
+        withCredentials: true, // Allows cookies to be sent and received
+      });
       return response.data;
     } catch (error) {
       throw error.response?.data?.message || "Login failed";
@@ -32,6 +34,7 @@ export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
     await axios.post(`${API_URL}/logout`, {}, { withCredentials: true });
     return true;
   } catch (error) {
+    console.log(error)
     throw error.response?.data?.message || "Logout failed";
   }
 });

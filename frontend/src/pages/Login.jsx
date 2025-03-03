@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/auth/authSlice";
+import {Link} from 'react-router-dom'
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(loginUser(formData)); // Just dispatch without navigating
+    dispatch(loginUser(formData)); 
   };
 
   return (
@@ -56,6 +57,12 @@ const Login = () => {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
+        <p className="text-center mt-4 text-gray-600">
+          Don't have an account?{" "}
+          <Link to="/register" className="text-blue-500 hover:underline">
+            Register
+          </Link>
+        </p>
       </div>
     </div>
   );

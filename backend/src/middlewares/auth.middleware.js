@@ -12,12 +12,23 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
       throw new ApiError(401, "Unauthorized request!");
     }
 
-    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+        const decodedWithoutVerify = jwt.decode(token);
+        console.log("Decoded (Without Verify):", decodedWithoutVerify);
 
-    const user = await User.findById(decodedToken?._id).select("-password");
+    const decodedToken = await jwt.verify(token, process.env.TOKEN_SECRET);
+    console.log("Decoded (Verified):", decodedToken);
+
+    if(!decodedToken){
+      console.log('cant decode token')
+      throw new ApiError(401, "Can decode token")
+    }
+
+   
+    const user = await User.findById(decodedToken?._id).select("-password");  
     if (!user) {
       throw new ApiError(401, "Invalid token!");
     }
+
 
     req.user = user;
 

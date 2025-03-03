@@ -6,26 +6,33 @@ const API_URL = "http://localhost:3000/api/v1/admin/lectures";
 
 export const scheduleLecture = createAsyncThunk(
   "lectures/schedule",
-  async (lectureData) => {
+  async (lectureData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${API_URL}/schedule-lecture`, lectureData, {
-        withCredentials: true,
-      });
+      const response = await axios.post(
+        `${API_URL}/schedule-lecture`,
+        lectureData,
+        { withCredentials: true }
+      );
       return response.data.data;
     } catch (error) {
-      throw error.response?.data?.message || "Failed to schedule lecture";
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to schedule lecture"
+      );
     }
   }
 );
 
+
 // Async Thunk to fetch all lectures
 export const fetchLectures = createAsyncThunk("lectures/fetchAll", async () => {
   try {
-    const response = await axios.get(`${API_URL}/get-lectures`, {
+    const response = await axios.get(`${API_URL}/get-all-lectures`, {
       withCredentials: true,
     });
+    console.log(response)
     return response.data.data;
   } catch (error) {
+    console.log(error)
     throw error.response?.data?.message || "Failed to fetch lectures";
   }
 });

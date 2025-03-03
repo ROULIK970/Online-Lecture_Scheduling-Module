@@ -15,6 +15,7 @@ import InstructorDashboard from "./pages/InstructorDashboard";
 
 // Protected Route Component
 import ProtectedRoute from "./components/ProtectedRoute";
+import Register from "./pages/Register";
 
 const App = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -33,6 +34,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<Register/>} />
 
       {/* Protected Routes */}
       <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
