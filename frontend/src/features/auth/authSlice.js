@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const API_URL =
-  "https://online-lecture-scheduling-module-1.onrender.com/api/v1/users";
+  "https://online-lecture-scheduling-module-2.onrender.com/api/v1/users";
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
@@ -14,6 +14,7 @@ export const registerUser = createAsyncThunk(
       throw error.response?.data?.message || "Registration failed";
     }
   }
+
 );
 
 export const loginUser = createAsyncThunk(

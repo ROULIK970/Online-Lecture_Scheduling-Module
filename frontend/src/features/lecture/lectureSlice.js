@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 const API_URL =
-  "https://online-lecture-scheduling-module-1.onrender.com/api/v1/admin/lectures";
+  "https://online-lecture-scheduling-module-2.onrender.com/api/v1/admin/lectures";
 
 export const scheduleLecture = createAsyncThunk(
   "lectures/schedule",
@@ -43,7 +43,7 @@ export const fetchInstructorLectures = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(
-        "https://online-lecture-scheduling-module-1.onrender.com/api/v1/instructor/get-my-lectures",
+        "https://online-lecture-scheduling-module-2.onrender.com/api/v1/instructor/get-my-lectures",
         {
           withCredentials: true,
         }
