@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/auth/authSlice";
 import {Link} from 'react-router-dom'
+import { handleError, handleSuccess } from "../utils";
+import { ToastContainer } from "react-toastify";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -18,14 +20,18 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(loginUser(formData)); 
+    
+    dispatch(loginUser(formData)).then((response) => handleSuccess(response.payload.message)); 
+    
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-8 w-96">
         <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
-        {error && <p className="text-red-500 text-center mb-3">{error}</p>}
+        {error && (
+          <p className="text-red-500 text-center mb-3">{handleError(error)}</p>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-gray-700">Email</label>
@@ -64,6 +70,7 @@ const Login = () => {
           </Link>
         </p>
       </div>
+      <ToastContainer />
     </div>
   );
 };

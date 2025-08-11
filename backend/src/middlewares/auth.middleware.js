@@ -13,10 +13,8 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
     }
 
         const decodedWithoutVerify = jwt.decode(token);
-        console.log("Decoded (Without Verify):", decodedWithoutVerify);
 
     const decodedToken = await jwt.verify(token, process.env.TOKEN_SECRET);
-    console.log("Decoded (Verified):", decodedToken);
 
     if(!decodedToken){
       console.log('cant decode token')

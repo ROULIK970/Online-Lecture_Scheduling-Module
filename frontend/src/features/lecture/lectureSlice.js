@@ -47,6 +47,7 @@ export const fetchInstructorLectures = createAsyncThunk(
           withCredentials: true,
         }
       );
+      console.log(response)
       return response.data.data;
     } catch (error) {
       throw (

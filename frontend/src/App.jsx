@@ -28,7 +28,10 @@ const App = () => {
       userRole &&
       window.location.pathname !== `/${userRole}`
     ) {
-      navigate(`/${userRole}`);
+      setTimeout(() =>{
+        navigate(`/${userRole}`)
+      }, 1000)
+      
     }
   }, [isAuthenticated, userRole, navigate]);
   return (

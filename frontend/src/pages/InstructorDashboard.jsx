@@ -1,9 +1,19 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchInstructorLectures } from "../features/lecture/lectureSlice"; 
+import { logoutUser } from "../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+
 
 const InstructorDashboard = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate("/login");
+  };
 
   const { myLectures, loading, error } = useSelector((state) => state.lectures);
 
@@ -18,7 +28,7 @@ const InstructorDashboard = () => {
       {error && <p className="text-gray-500 text-3xl">{error}</p>}
 
       {myLectures.length === 0 && !loading && !error ? (
-        <p className="text-gray-500">No lectures scheduled yet.</p>
+        <p className="text-gray-500 mb-10">No lectures scheduled yet.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {myLectures.map((lecture) => (
@@ -39,6 +49,12 @@ const InstructorDashboard = () => {
           ))}
         </div>
       )}
+      <button
+        onClick={handleLogout}
+        className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg shadow-lg"
+      >
+        Logout
+      </button>
     </div>
   );
 };
