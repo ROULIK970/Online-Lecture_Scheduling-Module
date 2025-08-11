@@ -2,7 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Base API URL
-const API_URL = "http://localhost:3000/api/v1/admin/courses";
+const API_URL =
+  "https://online-lecture-scheduling-module-suic.onrender.com/api/v1/admin/courses";
 
 
 export const fetchCourses = createAsyncThunk(

@@ -2,7 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 
-const API_URL = "http://localhost:3000/api/v1/admin/lectures";
+const API_URL =
+  "https://online-lecture-scheduling-module-suic.onrender.com/api/v1/admin/lectures";
 
 export const scheduleLecture = createAsyncThunk(
   "lectures/schedule",
@@ -42,7 +43,7 @@ export const fetchInstructorLectures = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/instructor/get-my-lectures",
+        "https://online-lecture-scheduling-module-suic.onrender.com/api/v1/instructor/get-my-lectures",
         {
           withCredentials: true,
         }
