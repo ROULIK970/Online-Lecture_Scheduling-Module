@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Base API URL
 const API_URL =
-  "https://online-lecture-scheduling-module-suic.onrender.com/api/v1/admin/courses";
+  "https://online-lecture-scheduling-module-1.onrender.com/api/v1/admin/courses";
 
 
 export const fetchCourses = createAsyncThunk(
